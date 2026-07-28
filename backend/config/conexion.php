@@ -2,10 +2,11 @@
 // Configuración: Conexión a la base de datos (PDO)
 
 // --- Configuración de la base de datos ---
-define('DB_HOST',    'localhost');
-define('DB_NOMBRE',  'envio_revistas');
-define('DB_USUARIO', 'root');
-define('DB_CLAVE',   '');          // En XAMPP la contraseña por defecto es vacía
+// Usa variables de entorno si existen (producción), de lo contrario usa los valores de XAMPP (desarrollo local)
+define('DB_HOST',    getenv('DB_HOST') ?: 'localhost');
+define('DB_NOMBRE',  getenv('DB_NAME') ?: 'envio_revistas');
+define('DB_USUARIO', getenv('DB_USER') ?: 'root');
+define('DB_CLAVE',   getenv('DB_PASS') !== false ? getenv('DB_PASS') : ''); // En XAMPP la contraseña por defecto es vacía
 define('DB_CHARSET', 'utf8mb4');
 
 // --- Cabeceras para respuestas JSON (APIs) ---
