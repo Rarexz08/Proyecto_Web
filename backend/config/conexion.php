@@ -4,6 +4,7 @@
 // --- Configuración de la base de datos ---
 // Usa variables de entorno si existen (producción), de lo contrario usa los valores de XAMPP (desarrollo local)
 define('DB_HOST',    getenv('DB_HOST') ?: 'localhost');
+define('DB_PORT',    getenv('DB_PORT') ?: '3306');
 define('DB_NOMBRE',  getenv('DB_NAME') ?: 'envio_revistas');
 define('DB_USUARIO', getenv('DB_USER') ?: 'root');
 define('DB_CLAVE',   getenv('DB_PASS') !== false ? getenv('DB_PASS') : ''); // En XAMPP la contraseña por defecto es vacía
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // --- Establecer conexión PDO ---
 try {
     $dsn = "mysql:host=" . DB_HOST 
+         . ";port=" . DB_PORT
          . ";dbname=" . DB_NOMBRE 
          . ";charset=" . DB_CHARSET;
 
