@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de gestión de envíos de revistas a domicilio — Panel de despachos.">
+    <title>Envíos — RevistaExpress</title>
+
+    <!-- Tipografía -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+    <!-- ============================
+         BARRA DE NAVEGACIÓN
+         ============================ -->
+    <nav class="barra-navegacion">
+        <div class="contenedor-nav">
+            <a class="marca-sistema" href="envios.html">
+                <span class="icono-marca">RE</span>
+                <span class="nombre-marca">RevistaExpress</span>
+            </a>
+            <ul class="menu-navegacion">
+                <li>
+                    <a href="revistas.html" class="enlace-nav">
+                        <span class="icono-nav">📖</span>
+                        Revistas
+                    </a>
+                </li>
+                <li>
+                    <a href="personas.html" class="enlace-nav">
+                        <span class="icono-nav">👥</span>
+                        Personas
+                    </a>
+                </li>
+                <li>
+                    <a href="agencias.html" class="enlace-nav">
+                        <span class="icono-nav">🚚</span>
+                        Agencias
+                    </a>
+                </li>
+                <li>
+                    <a href="envios.html" class="enlace-nav activo">
+                        <span class="icono-nav">📦</span>
+                        Envíos
+                    </a>
+                </li>
+                <li>
+                    <button class="boton-salir" id="boton-salir">
+                        <span>🚪</span> Salir
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================
+         ÁREA DE TRABAJO
+         ============================ -->
+    <main class="area-trabajo">
+
+        <!-- Panel Izquierdo: Lista de Despachos -->
+        <aside class="panel-izquierdo">
+            <div class="cabecera-panel">
+                <h2 class="titulo-panel">Despachos</h2>
+                <span class="contador-envios" id="contador-envios">0 envíos</span>
+            </div>
+
+            <!-- Filtros y Búsqueda -->
+            <div class="filtros-panel">
+                <div class="contenedor-busqueda">
+                    <span class="icono-busqueda">🔍</span>
+                    <input 
+                        type="text" 
+                        class="campo-busqueda" 
+                        id="campo-busqueda" 
+                        placeholder="Buscar por revista, persona, agencia...">
+                </div>
+                <div class="grupo-filtros">
+                    <button class="filtro-estado activo" data-filtro="todos">Todos</button>
+                    <button class="filtro-estado" data-filtro="pendiente">Pendiente</button>
+                    <button class="filtro-estado" data-filtro="en_transito">En tránsito</button>
+                    <button class="filtro-estado" data-filtro="entregado">Entregado</button>
+                    <button class="filtro-estado" data-filtro="devuelto">Devuelto</button>
+                </div>
+            </div>
+
+            <!-- Lista de Tarjetas -->
+            <div class="lista-envios" id="lista-envios">
+                <!-- Generado dinámicamente por JavaScript -->
+            </div>
+            
+            <!-- Controles de Paginación -->
+            <div class="paginacion" id="paginacion" style="display: none;"></div>
+
+            <!-- Botón Nuevo Envío -->
+            <div style="padding: 12px;">
+                <button class="boton-nuevo-envio" id="boton-nuevo-envio" style="width: 100%; justify-content: center;">
+                    <span>＋</span> Nuevo Envío
+                </button>
+            </div>
+        </aside>
+
+        <!-- Panel Derecho: Ficha de Detalles -->
+        <section class="panel-derecho" id="panel-detalle">
+
+            <!-- Estado vacío (se muestra cuando no hay envío seleccionado) -->
+            <div class="estado-vacio" id="estado-vacio">
+                <div class="icono-vacio">📋</div>
+                <h3>Selecciona un envío</h3>
+                <p>Haz clic en un despacho de la lista izquierda para ver todos sus detalles y acciones disponibles.</p>
+            </div>
+
+            <!-- Contenido dinámico del detalle (oculto inicialmente) -->
+            <div class="contenido-detalle" id="contenido-detalle" style="display: none;">
+                <!-- Generado dinámicamente por JavaScript -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Contenedor de modales -->
+    <div id="contenedor-modal"></div>
+
+    <!-- Scripts -->
+    <script src="../js/validaciones.js"></script>
+    <script src="../js/envios.js"></script>
+
+</body>
+</html>

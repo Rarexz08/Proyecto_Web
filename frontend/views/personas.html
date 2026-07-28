@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestión de personas — Sistema de envío de revistas a domicilio.">
+    <title>Personas — RevistaExpress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="barra-navegacion">
+        <div class="contenedor-nav">
+            <a class="marca-sistema" href="envios.html">
+                <span class="icono-marca">RE</span>
+                <span class="nombre-marca">RevistaExpress</span>
+            </a>
+            <ul class="menu-navegacion">
+                <li><a href="revistas.html" class="enlace-nav"><span class="icono-nav">📖</span> Revistas</a></li>
+                <li><a href="personas.html" class="enlace-nav activo"><span class="icono-nav">👥</span> Personas</a></li>
+                <li><a href="agencias.html" class="enlace-nav"><span class="icono-nav">🚚</span> Agencias</a></li>
+                <li><a href="envios.html" class="enlace-nav"><span class="icono-nav">📦</span> Envíos</a></li>
+                <li><button class="boton-salir" id="boton-salir"><span>🚪</span> Salir</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Área de trabajo -->
+    <main class="area-trabajo">
+        <!-- Panel Izquierdo -->
+        <aside class="panel-izquierdo">
+            <div class="cabecera-panel">
+                <h2 class="titulo-panel">Personas</h2>
+                <span class="contador-envios" id="contador-registros">0</span>
+            </div>
+            <div class="filtros-panel">
+                <div class="contenedor-busqueda">
+                    <span class="icono-busqueda">🔍</span>
+                    <input type="text" class="campo-busqueda" id="campo-busqueda" placeholder="Buscar por nombre, email, ciudad...">
+                </div>
+            </div>
+            <div class="lista-envios" id="lista-registros"></div>
+            
+            <!-- Controles de Paginación -->
+            <div class="paginacion" id="paginacion" style="display: none;"></div>
+
+            <div style="padding: 12px;">
+                <button class="boton-nuevo-envio" id="boton-nuevo" style="width: 100%; justify-content: center;">
+                    <span>＋</span> Nueva Persona
+                </button>
+            </div>
+        </aside>
+
+        <!-- Panel Derecho -->
+        <section class="panel-derecho" id="panel-detalle">
+            <div class="estado-vacio" id="estado-vacio">
+                <div class="icono-vacio">👥</div>
+                <h3>Selecciona una persona</h3>
+                <p>Haz clic en un registro de la lista para ver los datos completos del destinatario.</p>
+            </div>
+            <div class="contenido-detalle" id="contenido-detalle" style="display: none;"></div>
+        </section>
+    </main>
+
+    <!-- Contenedor de modales -->
+    <div id="contenedor-modal"></div>
+
+    <script src="../js/validaciones.js"></script>
+    <script src="../js/personas.js"></script>
+</body>
+</html>

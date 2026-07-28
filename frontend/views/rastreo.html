@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastrear Envío — RevistaExpress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <style>
+        body {
+            background-color: var(--fondo);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .cabecera-publica {
+            background-color: var(--superficie);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedor-rastreo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem 1rem;
+        }
+
+        .tarjeta-rastreo {
+            background-color: var(--superficie);
+            border-radius: var(--radio-lg);
+            border: 1px solid var(--borde);
+            box-shadow: var(--sombra-md);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .titulo-rastreo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--texto);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subtitulo-rastreo {
+            color: var(--texto-secundario);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .busqueda-rastreo {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .campo-guia {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--borde);
+            border-radius: var(--radio);
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+
+        .campo-guia:focus {
+            border-color: var(--primario);
+        }
+
+        .boton-rastrear {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background-color: var(--primario);
+            color: white;
+            border: none;
+            border-radius: var(--radio);
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .boton-rastrear:hover {
+            background-color: var(--primario-oscuro);
+        }
+
+        .resultado-rastreo {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Línea de tiempo */
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background-color: var(--borde);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-icono {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--superficie);
+            border: 2px solid var(--borde);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .timeline-item.activo .timeline-icono {
+            border-color: var(--primario);
+            background-color: var(--primario);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.1);
+        }
+
+        .timeline-item.completado .timeline-icono {
+            border-color: var(--exito);
+            background-color: var(--exito);
+            color: white;
+        }
+        
+        .timeline-item.cancelado .timeline-icono {
+            border-color: var(--peligro);
+            background-color: var(--peligro);
+            color: white;
+        }
+
+        .timeline-contenido h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--texto);
+            font-size: 1.1rem;
+        }
+
+        .timeline-contenido p {
+            margin: 0;
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        .resumen-paquete {
+            background-color: var(--fondo);
+            padding: 1.5rem;
+            border-radius: var(--radio);
+            margin-top: 2rem;
+            border: 1px solid var(--borde);
+        }
+
+        .resumen-fila {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .resumen-fila:last-child {
+            margin-bottom: 0;
+        }
+
+        .resumen-etiqueta {
+            color: var(--texto-secundario);
+        }
+
+        .resumen-valor {
+            font-weight: 500;
+            color: var(--texto);
+            text-align: right;
+        }
+        
+        .error-mensaje {
+            color: var(--peligro);
+            background-color: #fbeae9;
+            padding: 1rem;
+            border-radius: var(--radio);
+            text-align: center;
+            display: none;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .busqueda-rastreo {
+                flex-direction: column;
+            }
+            .boton-rastrear {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-publica">
+        <a class="marca-sistema" href="#">
+            <span class="icono-marca">RE</span>
+            <span class="nombre-marca">RevistaExpress</span>
+        </a>
+    </header>
+
+    <main class="contenedor-rastreo">
+        <div class="tarjeta-rastreo">
+            <h1 class="titulo-rastreo">Rastrea tu Revista</h1>
+            <p class="subtitulo-rastreo">Ingresa el código de guía para conocer el estado de tu envío.</p>
+
+            <div class="error-mensaje" id="mensaje-error"></div>
+
+            <div class="busqueda-rastreo">
+                <input type="text" class="campo-guia" id="input-guia" placeholder="Ej: REV-ABC123D4" autocomplete="off">
+                <button class="boton-rastrear" id="btn-rastrear">Buscar</button>
+            </div>
+
+            <div class="resultado-rastreo" id="resultado-rastreo">
+                
+                <ul class="timeline" id="linea-tiempo">
+                    <!-- Se llena con JS -->
+                </ul>
+
+                <div class="resumen-paquete" id="resumen-paquete">
+                    <!-- Se llena con JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/rastreo.js"></script>
+</body>
+</html>
