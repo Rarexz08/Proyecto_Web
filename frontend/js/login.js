@@ -2,10 +2,12 @@
    LOGIN — Lógica de autenticación (JavaScript Vanilla)
 */
 
+const BASE_PATH = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/Proyecto1' : '';
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // Si ya hay sesión activa, redirigir al panel principal
-    fetch("/Proyecto1/backend/api/auth.php?action=verificar")
+    fetch(BASE_PATH + "/backend/api/auth.php?action=verificar")
         .then(function (r) { return r.json(); })
         .then(function (data) {
             if (data.autenticado) window.location.href = "envios.html";
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         botonEntrar.textContent = "Ingresando...";
 
         // Llamada a la API de autenticación
-        fetch("/Proyecto1/backend/api/auth.php", {
+        fetch(BASE_PATH + "/backend/api/auth.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

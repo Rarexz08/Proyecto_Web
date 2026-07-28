@@ -1,7 +1,8 @@
 // Módulo CRUD: Revistas y Ejemplares
 
-const API_REVISTAS   = '/Proyecto1/backend/api/revistas.php';
-const API_EJEMPLARES = '/Proyecto1/backend/api/ejemplares.php';
+const BASE_PATH = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/Proyecto1' : '';
+const API_REVISTAS   = BASE_PATH + '/backend/api/revistas.php';
+const API_EJEMPLARES = BASE_PATH + '/backend/api/ejemplares.php';
 
 let registros = [];
 let seleccionadoId = null;
@@ -14,7 +15,7 @@ const itemsPorPagina = 5;
 // SEGURIDAD — Verificar sesión
 
 function verificarSesion() {
-    fetch('/Proyecto1/backend/api/auth.php?action=verificar')
+    fetch(BASE_PATH + '/backend/api/auth.php?action=verificar')
         .then(function (r) { return r.json(); })
         .then(function (data) {
             if (!data.autenticado) window.location.href = 'login.html';
@@ -38,7 +39,7 @@ function mostrarNotificacion(mensaje, tipo) {
 }
 
 function cerrarSesion() {
-    fetch('/Proyecto1/backend/api/auth.php', {
+    fetch(BASE_PATH + '/backend/api/auth.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'logout' })

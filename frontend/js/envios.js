@@ -1,10 +1,11 @@
 // Módulo CRUD: Envíos
 
-const API_ENVIOS     = '/Proyecto1/backend/api/envios.php';
-const API_REVISTAS   = '/Proyecto1/backend/api/revistas.php';
-const API_EJEMPLARES = '/Proyecto1/backend/api/ejemplares.php';
-const API_PERSONAS   = '/Proyecto1/backend/api/personas.php';
-const API_AGENCIAS   = '/Proyecto1/backend/api/agencias.php';
+const BASE_PATH = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/Proyecto1' : '';
+const API_ENVIOS     = BASE_PATH + '/backend/api/envios.php';
+const API_REVISTAS   = BASE_PATH + '/backend/api/revistas.php';
+const API_EJEMPLARES = BASE_PATH + '/backend/api/ejemplares.php';
+const API_PERSONAS   = BASE_PATH + '/backend/api/personas.php';
+const API_AGENCIAS   = BASE_PATH + '/backend/api/agencias.php';
 
 let registros = [];
 let seleccionadoId = null;
@@ -18,7 +19,7 @@ const itemsPorPagina = 5;
 // SEGURIDAD — Verificar sesión
 
 function verificarSesion() {
-    fetch('/Proyecto1/backend/api/auth.php?action=verificar')
+    fetch(BASE_PATH + '/backend/api/auth.php?action=verificar')
         .then(function (r) { return r.json(); })
         .then(function (data) {
             if (!data.autenticado) {
@@ -46,7 +47,7 @@ function mostrarNotificacion(mensaje, tipo) {
 }
 
 function cerrarSesion() {
-    fetch('/Proyecto1/backend/api/auth.php', {
+    fetch(BASE_PATH + '/backend/api/auth.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'logout' })
@@ -254,7 +255,7 @@ function renderizarDetalle(e) {
 }
 
 window.copiarRastreo = function(codigo) {
-    var url = window.location.origin + '/Proyecto1/frontend/views/rastreo.html?guia=' + codigo;
+    var url = window.location.origin + BASE_PATH + '/frontend/views/rastreo.html?guia=' + codigo;
     navigator.clipboard.writeText(url).then(function() {
         mostrarNotificacion('Enlace de rastreo copiado al portapapeles', 'exito');
     }).catch(function() {
